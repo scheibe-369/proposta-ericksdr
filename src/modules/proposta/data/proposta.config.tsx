@@ -1,121 +1,278 @@
+import { Check, MessageCircle, CalendarCheck } from "lucide-react";
 import {
-  Target,
+  type IconProps,
+  WarningOctagon,
   Lightbulb,
-  Clock,
-  CalendarCheck,
-  RotateCcw,
-  BellRing,
-  PieChart,
-  Activity,
-  Sparkles,
-} from "lucide-react";
+  ClipboardText,
+  CalendarCheck as PhCalendarCheck,
+  ChatsCircle,
+  Kanban,
+  ShieldCheck,
+  HeadCircuit,
+  Headset,
+  Stethoscope,
+  HardDrives,
+  Coins,
+  WhatsappLogo,
+} from "@phosphor-icons/react";
+import type { ComponentType } from "react";
 import logo from "@/assets/logo-growthhub.png";
 import type { PropostaConfig } from "../types";
 
 /**
  * FONTE ÚNICA DE CONTEÚDO DA PROPOSTA.
  *
- * Este é o template. Substitua TODOS os placeholders [XYZ] pelo
- * conteúdo real do cliente antes de entregar.
+ * Cliente: clínica médica que hoje usa ProDoctor (gestão) + InfoChat (atendimento).
+ * Dores: ProDoctor trava/bug/lento, InfoChat bane número e tem CRM fraco.
+ * Solução: um sistema unificado, sob medida, em nuvem.
  *
- * Regras:
- *   1. Não passe strings hard-coded para os componentes — tudo aqui.
- *   2. Os tipos em ../types.ts são a fonte de verdade. Não invente campos.
- *   3. Para mockups customizados em featureTabs, defina componentes locais
- *      neste arquivo (é .tsx, suporta JSX) e passe via `mockup: <Seu />`.
- *      Veja .claude/skills/ui-ux-pro-max/SKILL.md para o padrão visual.
- *   4. Antes de entregar: rode `npm run lint && npm run build` e percorra
- *      a página em 375 / 768 / 1440px.
+ * Identidade visual: roxo/violeta da GrowthHub (definido em src/index.css). Não trocar.
+ * Ícones dos cards: Phosphor em peso "duotone" (mais distintos), via helper duo().
  *
- * Veja docs/escopo-template.md para o formato esperado de escopo do cliente.
+ * Placeholders restantes a preencher quando o cliente enviar:
+ *   {{CLIENTE}} no badge do hero (nome do cliente ou da clínica).
  */
+
+/* ------------------------------------------------------------------ */
+/* Ícones (Phosphor duotone) para os cards                            */
+/* ------------------------------------------------------------------ */
+
+const duo = (Comp: ComponentType<IconProps>) => {
+  const Wrapped = ({ className }: { className?: string }) => (
+    <Comp weight="duotone" className={className} />
+  );
+  return Wrapped;
+};
+
+const IcoDesafio = duo(WarningOctagon);
+const IcoSolucao = duo(Lightbulb);
+const IcoProntuario = duo(ClipboardText);
+const IcoAgenda = duo(PhCalendarCheck);
+const IcoAtendimento = duo(ChatsCircle);
+const IcoCrm = duo(Kanban);
+const IcoSemBanimento = duo(ShieldCheck);
+const IcoIaPilar = duo(HeadCircuit);
+const IcoTabAtendimento = duo(Headset);
+const IcoTabClinica = duo(Stethoscope);
+const IcoTabIa = duo(HeadCircuit);
+const IcoServidor = duo(HardDrives);
+const IcoTokens = duo(Coins);
+const IcoApiOficial = duo(WhatsappLogo);
+
+/* ------------------------------------------------------------------ */
+/* Mockups customizados das FeatureTabs                                */
+/* ------------------------------------------------------------------ */
+
+const MockupAtendimento = () => (
+  <div className="glass-dark rounded-3xl border border-primary/20 shadow-premium overflow-hidden p-6 sm:p-7">
+    <div className="flex items-center gap-2 mb-5">
+      <div className="w-2 h-2 rounded-full bg-red-500/80" />
+      <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
+      <div className="w-2 h-2 rounded-full bg-green-500/80" />
+      <p className="ml-3 text-[10px] font-bold tracking-[0.3em] uppercase text-primary/60">
+        Funil de atendimento
+      </p>
+    </div>
+    <div className="grid grid-cols-3 gap-3">
+      {[
+        { t: "Novo", n: "3", c: ["Ana · agendar", "João · dúvida"] },
+        { t: "Atendendo", n: "2", c: ["Marina · retorno"] },
+        { t: "Agendado", n: "5", c: ["Carlos · 14h30"] },
+      ].map((col) => (
+        <div key={col.t} className="rounded-xl bg-white/5 border border-white/10 p-3">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[9px] font-bold uppercase tracking-wider text-primary/70">
+              {col.t}
+            </span>
+            <span className="text-[9px] text-muted-foreground">{col.n}</span>
+          </div>
+          <div className="space-y-2">
+            {col.c.map((card) => (
+              <div
+                key={card}
+                className="rounded-lg bg-primary/10 border border-primary/20 px-2 py-1.5 text-[9px] text-foreground/80 leading-tight"
+              >
+                {card}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    <div className="mt-5 flex items-center justify-center gap-2 text-[10px] uppercase tracking-[0.25em] text-primary/70 text-center">
+      <MessageCircle className="w-3 h-3 flex-shrink-0" />
+      <span>WhatsApp, Instagram e site num painel só</span>
+    </div>
+  </div>
+);
+
+const MockupClinica = () => (
+  <div className="glass-dark rounded-3xl border border-primary/20 shadow-premium overflow-hidden p-6 sm:p-7">
+    <div className="flex items-center gap-2 mb-5">
+      <div className="w-2 h-2 rounded-full bg-red-500/80" />
+      <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
+      <div className="w-2 h-2 rounded-full bg-green-500/80" />
+      <p className="ml-3 text-[10px] font-bold tracking-[0.3em] uppercase text-primary/60">
+        Agenda do dia
+      </p>
+    </div>
+    <div className="space-y-2.5">
+      {[
+        { h: "09:00", p: "Ana Souza", t: "Consulta", on: false },
+        { h: "10:30", p: "João Lima", t: "Retorno", on: false },
+        { h: "14:30", p: "Carlos Dias", t: "Cardiologia", on: true },
+      ].map((s) => (
+        <div
+          key={s.h}
+          className={`flex items-center gap-3 rounded-xl px-3 py-2.5 border ${
+            s.on ? "bg-primary/10 border-primary/30" : "bg-white/5 border-white/10"
+          }`}
+        >
+          <span className="text-[11px] font-bold text-primary w-10 flex-shrink-0">{s.h}</span>
+          <span className="text-[11px] text-foreground/85 flex-grow">{s.p}</span>
+          <span className="text-[9px] uppercase tracking-wider text-muted-foreground">{s.t}</span>
+        </div>
+      ))}
+    </div>
+    <div className="mt-4 flex items-center gap-2 rounded-xl bg-green-500/10 border border-green-500/20 px-3 py-2.5">
+      <CalendarCheck className="w-4 h-4 text-green-400 flex-shrink-0" />
+      <span className="text-[10px] text-foreground/80">
+        Confirmação enviada no WhatsApp e respondida
+      </span>
+      <Check className="w-3.5 h-3.5 text-green-400 ml-auto flex-shrink-0" />
+    </div>
+  </div>
+);
+
+const MockupIA = () => (
+  <div className="glass-dark rounded-3xl border border-primary/20 shadow-premium overflow-hidden p-6 sm:p-7">
+    <div className="flex items-center gap-2 mb-5">
+      <div className="w-2 h-2 rounded-full bg-red-500/80" />
+      <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
+      <div className="w-2 h-2 rounded-full bg-green-500/80" />
+      <p className="ml-3 text-[10px] font-bold tracking-[0.3em] uppercase text-primary/60">
+        Agente de IA · WhatsApp oficial
+      </p>
+    </div>
+    <div className="space-y-2.5">
+      <div className="max-w-[80%] rounded-2xl rounded-tl-sm bg-white/5 border border-white/10 px-3 py-2 text-[11px] text-foreground/80">
+        Oi, queria marcar uma consulta
+      </div>
+      <div className="max-w-[85%] ml-auto rounded-2xl rounded-tr-sm bg-primary/15 border border-primary/30 px-3 py-2 text-[11px] text-foreground/90">
+        Claro! Tenho quinta às 14h30 com o cardiologista. Confirmo pra você?
+      </div>
+      <div className="max-w-[60%] rounded-2xl rounded-tl-sm bg-white/5 border border-white/10 px-3 py-2 text-[11px] text-foreground/80">
+        Pode ser
+      </div>
+      <div className="max-w-[85%] ml-auto rounded-2xl rounded-tr-sm bg-primary/15 border border-primary/30 px-3 py-2 text-[11px] text-foreground/90">
+        Agendado, quinta 14h30. Te lembro um dia antes.
+      </div>
+    </div>
+    <div className="mt-5 flex items-center justify-center gap-2 text-[10px] uppercase tracking-[0.25em] text-primary/70">
+      <HeadCircuit className="w-3.5 h-3.5 flex-shrink-0" weight="duotone" />
+      <span>Atende e agenda sozinho, 24 horas por dia</span>
+    </div>
+  </div>
+);
+
+/* ------------------------------------------------------------------ */
+/* Conteúdo                                                            */
+/* ------------------------------------------------------------------ */
+
 export const proposta: PropostaConfig = {
   hero: {
-    badge: "PROPOSTA COMERCIAL · [NOME DO CLIENTE]",
-    titulo: "[FRASE DE ABERTURA — primeira parte]",
-    tituloDestaque: "[FRASE DE ABERTURA — parte com destaque]",
+    badge: "PROPOSTA COMERCIAL · {{CLIENTE}}",
+    titulo: "Toda a sua clínica em",
+    tituloDestaque: "um sistema só",
     subtitulo:
-      "[Subtítulo de 1 a 2 linhas que explica o produto/serviço e o ganho principal pro cliente. Voz ativa, frase curta.]",
+      "Gestão da clínica, atendimento e CRM no mesmo lugar. Rápido, estável, com visual moderno e um WhatsApp que não cai e não é banido.",
     logoSrc: logo,
-    logoAlt: "[Nome do cliente]",
+    logoAlt: "GrowthHub",
     ctaLabel: "Ver como funciona",
     scrollTargetId: "momento-atual",
   },
 
   marquee: {
     items: [
-      "[KEYWORD 1]",
-      "[KEYWORD 2]",
-      "[KEYWORD 3]",
-      "[KEYWORD 4]",
-      "[KEYWORD 5]",
-      "[KEYWORD 6]",
-      "[KEYWORD 7]",
+      "Prontuário eletrônico",
+      "Agenda inteligente",
+      "WhatsApp oficial",
+      "CRM que funciona",
+      "Confirmação automática",
+      "Zero banimento",
+      "Tudo num sistema só",
+      "Agente de IA",
     ],
   },
 
   momentoAtual: {
     eyebrow: "O CENÁRIO HOJE",
-    titulo: "[Título da dor — uma frase direta sobre o problema atual]",
+    titulo: "Dois sistemas, e nenhum dos dois te ajuda",
     subtitulo:
-      "[Subtítulo que aprofunda a dor em 1 a 2 linhas. Conecta o problema atual ao impacto financeiro/operacional pro cliente.]",
+      "Hoje a sua operação depende do ProDoctor para a clínica e do InfoChat para o atendimento. Os dois travam, geram retrabalho e ainda custam caro.",
     desafio: {
       titulo: "Como é hoje",
-      icone: Target,
+      icone: IcoDesafio,
       items: [
-        "[Dor 1 — concreta, observável]",
-        "[Dor 2 — impacto direto]",
-        "[Dor 3 — consequência operacional]",
-        "[Dor 4 — consequência financeira ou de imagem]",
+        "O ProDoctor trava, dá bug e fica lento. No dia cheio, o sistema atrapalha em vez de ajudar.",
+        "O InfoChat bane o número do WhatsApp e derruba o seu contato com o paciente.",
+        "CRM fraco e visual ultrapassado: a equipe perde tempo e o paciente sente.",
+        "Dois sistemas separados, duas mensalidades e dados que não conversam.",
       ],
     },
     solucao: {
       titulo: "Como passa a ser",
-      icone: Lightbulb,
+      icone: IcoSolucao,
       items: [
-        "[Solução 1 — em paralelo à dor 1]",
-        "[Solução 2 — em paralelo à dor 2]",
-        "[Solução 3 — em paralelo à dor 3]",
-        "[Solução 4 — em paralelo à dor 4]",
+        "Sistema em nuvem, rápido e estável. Abre na hora e aguenta o movimento do dia.",
+        "WhatsApp protegido contra banimento. Com o Agente de IA, sobe para a API oficial da Meta.",
+        "CRM visual e fácil, com a cara de 2026. A equipe aprende rápido e atende melhor.",
+        "Tudo em um só lugar: uma plataforma, um login, todos os dados juntos.",
       ],
     },
   },
 
   ecossistema: {
     eyebrow: "OS PILARES",
-    titulo: "[Título que sintetiza o sistema/serviço inteiro]",
+    titulo: "Tudo o que o ProDoctor e o InfoChat fazem, junto e funcionando",
     subtitulo:
-      "[Subtítulo conectando os 6 pilares numa promessa única.]",
+      "Seis frentes reunidas em uma plataforma feita sob medida para a sua clínica.",
     pilares: [
       {
-        icone: Clock,
-        titulo: "[Pilar 1]",
-        descricao: "[Descrição em 1 frase do que o pilar entrega.]",
+        icone: IcoProntuario,
+        titulo: "Prontuário eletrônico",
+        descricao:
+          "Histórico do paciente, anamnese e documentos organizados, seguros e sempre à mão.",
       },
       {
-        icone: CalendarCheck,
-        titulo: "[Pilar 2]",
-        descricao: "[Descrição em 1 frase do que o pilar entrega.]",
+        icone: IcoAgenda,
+        titulo: "Agenda inteligente",
+        descricao:
+          "Agenda por profissional com confirmação e lembrete automáticos no WhatsApp.",
       },
       {
-        icone: RotateCcw,
-        titulo: "[Pilar 3]",
-        descricao: "[Descrição em 1 frase do que o pilar entrega.]",
+        icone: IcoAtendimento,
+        titulo: "Atendimento omnichannel",
+        descricao:
+          "WhatsApp, Instagram e site no mesmo painel, com vários atendentes sem bagunça.",
       },
       {
-        icone: BellRing,
-        titulo: "[Pilar 4]",
-        descricao: "[Descrição em 1 frase do que o pilar entrega.]",
+        icone: IcoCrm,
+        titulo: "CRM visual",
+        descricao:
+          "Funil em quadro, etiquetas e respostas rápidas para que nenhum paciente esfrie.",
       },
       {
-        icone: PieChart,
-        titulo: "[Pilar 5]",
-        descricao: "[Descrição em 1 frase do que o pilar entrega.]",
+        icone: IcoSemBanimento,
+        titulo: "WhatsApp sem banimento",
+        descricao:
+          "API oficial e boas práticas para o seu número parar de cair e ser bloqueado.",
       },
       {
-        icone: Activity,
-        titulo: "[Pilar 6]",
-        descricao: "[Descrição em 1 frase do que o pilar entrega.]",
+        icone: IcoIaPilar,
+        titulo: "Agente de IA",
+        descricao:
+          "Atende, qualifica e agenda sozinho, 24 horas por dia (no pacote com IA).",
       },
     ],
   },
@@ -123,163 +280,242 @@ export const proposta: PropostaConfig = {
   featureTabs: {
     tabs: [
       {
-        label: "[ABA 1 — label curto, caps]",
-        icone: Sparkles,
-        titulo: "[Título da aba 1]",
+        label: "ATENDIMENTO E CRM",
+        icone: IcoTabAtendimento,
+        titulo: "O atendimento que o InfoChat não entregou",
         descricao:
-          "[Parágrafo explicando o que essa funcionalidade faz e por que importa pro cliente.]",
+          "Todas as conversas em um painel só, com a equipe inteira no mesmo número sem se atropelar. O paciente é respondido rápido e nada se perde no caminho.",
         itens: [
-          "[Item 1]",
-          "[Item 2]",
-          "[Item 3]",
-          "[Item 4]",
+          "WhatsApp, Instagram e site juntos",
+          "Vários atendentes no mesmo número",
+          "Funil de vendas em quadro visual",
+          "Etiquetas, notas e respostas rápidas",
         ],
-        // mockup: <Mockup1 />, // opcional — ver SKILL.md ui-ux-pro-max
+        mockup: <MockupAtendimento />,
       },
       {
-        label: "[ABA 2 — label curto, caps]",
-        icone: RotateCcw,
-        titulo: "[Título da aba 2]",
+        label: "GESTÃO DA CLÍNICA",
+        icone: IcoTabClinica,
+        titulo: "A clínica inteira, sem travar",
         descricao:
-          "[Parágrafo explicando a funcionalidade.]",
+          "Prontuário, agenda e receituário num sistema em nuvem que abre na hora. A confirmação de consulta sai sozinha no WhatsApp e reduz a falta dos pacientes.",
         itens: [
-          "[Item 1]",
-          "[Item 2]",
-          "[Item 3]",
-          "[Item 4]",
+          "Prontuário eletrônico personalizável",
+          "Agenda por profissional",
+          "Receituário e documentos digitais",
+          "Confirmação e lembrete automáticos",
         ],
+        mockup: <MockupClinica />,
       },
       {
-        label: "[ABA 3 — label curto, caps]",
-        icone: PieChart,
-        titulo: "[Título da aba 3]",
+        label: "AGENTE DE IA",
+        icone: IcoTabIa,
+        titulo: "Um atendente que nunca dorme",
         descricao:
-          "[Parágrafo explicando a funcionalidade.]",
+          "No pacote com IA, um agente atende, tira dúvidas, qualifica e agenda sozinho a qualquer hora. É ele que destrava o WhatsApp com API oficial.",
         itens: [
-          "[Item 1]",
-          "[Item 2]",
-          "[Item 3]",
-          "[Item 4]",
+          "Atende e agenda 24 horas por dia",
+          "Qualifica e organiza o paciente",
+          "Responde as dúvidas mais comuns",
+          "Roda no WhatsApp API oficial",
         ],
+        mockup: <MockupIA />,
       },
     ],
   },
 
   jornada: {
-    eyebrow: "IMPLEMENTAÇÃO EM [N] DIAS",
-    titulo: "[Título da jornada — primeira parte]",
-    tituloDestaque: "[parte com destaque]",
+    eyebrow: "IMPLEMENTAÇÃO EM 2 MESES",
+    titulo: "Do caos de hoje ao novo sistema em",
+    tituloDestaque: "8 semanas",
     subtitulo:
-      "[Subtítulo descrevendo o processo de entrega em alto nível.]",
+      "Um plano claro, sem sumiço e sem surpresa. Você acompanha cada entrega de perto.",
     etapas: [
       {
         numero: 1,
-        titulo: "[Etapa 1]",
-        descricao: "[O que acontece nessa etapa, em 1 a 2 frases.]",
+        titulo: "Imersão e setup",
+        descricao:
+          "Semanas 1 e 2. Entendemos a sua rotina, preparamos o servidor, migramos os seus dados e desenhamos a interface.",
       },
       {
         numero: 2,
-        titulo: "[Etapa 2]",
-        descricao: "[O que acontece nessa etapa.]",
+        titulo: "Atendimento e CRM",
+        descricao:
+          "Semanas 3 e 4. Subimos o WhatsApp, o painel de atendimento e o funil de vendas. A dor mais urgente sai primeiro.",
       },
       {
         numero: 3,
-        titulo: "[Etapa 3]",
-        descricao: "[O que acontece nessa etapa.]",
+        titulo: "Gestão da clínica",
+        descricao:
+          "Semanas 5 e 6. Prontuário, agenda, receituário e as confirmações automáticas entram no ar.",
       },
       {
         numero: 4,
-        titulo: "[Etapa 4]",
-        descricao: "[O que acontece nessa etapa.]",
+        titulo: "IA, testes e go live",
+        descricao:
+          "Semanas 7 e 8. Ativamos o agente de IA (se contratado), treinamos a equipe e colocamos tudo para rodar.",
       },
     ],
   },
 
   investimento: {
-    eyebrow: "O CUSTO DE NÃO TER",
-    titulo: "[Título do comparativo entre cenários]",
+    eyebrow: "O CUSTO DE CONTINUAR ASSIM",
+    titulo: "Dois sistemas caros, ou um que funciona",
     subtitulo:
-      "[Subtítulo que reforça o custo de continuar como está.]",
+      "Seguir no ProDoctor e no InfoChat tem um custo que não aparece na fatura: tempo perdido, paciente que esfria e número banido.",
     cenarioAtual: {
       titulo: "Cenário Atual",
       label: "HOJE",
-      destaque: "[Síntese do problema, ex: 'Tempo + retrabalho']",
-      subtitulo: "[Subtítulo curto do cenário atual]",
+      destaque: "2 sistemas",
+      subtitulo: "ProDoctor + InfoChat",
       items: [
-        "[Problema operacional 1]",
-        "[Problema operacional 2]",
-        "[Problema operacional 3]",
-        "[Problema operacional 4]",
+        "Travas, bugs e lentidão no dia a dia",
+        "Número de WhatsApp banido sem aviso",
+        "CRM fraco e visual ultrapassado",
+        "Duas mensalidades e dois suportes",
+        "Dados espalhados e relatório no braço",
       ],
     },
     cenarioFuturo: {
-      titulo: "Cenário [NOME DO CLIENTE]",
-      label: "COM O SISTEMA",
-      destaque: "[Síntese do ganho, ex: 'Operação organizada']",
-      subtitulo: "[Subtítulo curto do cenário futuro]",
+      titulo: "Com o novo sistema",
+      label: "DEPOIS",
+      destaque: "1 plataforma",
+      subtitulo: "Sob medida para a sua clínica",
       items: [
-        "[Ganho 1 — em paralelo ao problema 1]",
-        "[Ganho 2]",
-        "[Ganho 3]",
-        "[Ganho 4]",
-        "[Ganho 5 — extra, opcional]",
+        "Sistema em nuvem rápido e estável",
+        "WhatsApp protegido contra banimento",
+        "CRM visual que a equipe usa de verdade",
+        "Um sistema, um suporte, um login",
+        "Tudo integrado e relatórios na hora",
       ],
     },
   },
 
   precos: {
     eyebrow: "INVESTIMENTO",
-    titulo: "Estrutura comercial",
+    titulo: "Escolha o seu pacote",
     planos: [
       {
+        id: "sem-ia",
         eyebrow: "IMPLEMENTAÇÃO",
-        nome: "[Nome do plano de setup, ex: 'Setup Completo']",
+        nome: "Sistema Unificado",
         descricao:
-          "[Frase explicando o que é o setup e o prazo.]",
-        valor: "R$ [valor]",
+          "Toda a gestão da clínica e o atendimento numa só plataforma, entregue em 2 meses.",
+        valor: "R$ 7.000",
         periodo: "pagamento único",
-        rotuloValor: "[rótulo curto, ex: 'duas formas de pagar']",
+        rotuloValor: "sem Agente de IA",
         itens: [
-          "[Entrega 1 do setup]",
-          "[Entrega 2]",
-          "[Entrega 3]",
-          "[Entrega 4]",
-          "[Entrega 5]",
-          "[Entrega 6]",
+          "Gestão da clínica: prontuário, agenda e receituário",
+          "Atendimento omnichannel e CRM visual",
+          "WhatsApp otimizado contra banimento",
+          "Migração dos seus dados atuais",
+          "Treinamento da equipe",
+          "Entrega em até 2 meses",
         ],
         observacao:
-          "[Detalhe sobre formas de pagamento ou desconto à vista, opcional.]",
+          "Dá para começar sem IA e adicionar o Agente de IA depois, quando você quiser.",
       },
       {
-        eyebrow: "RECORRÊNCIA",
-        nome: "[Nome do plano mensal, ex: 'Operação Mensal']",
+        id: "com-ia",
+        eyebrow: "IMPLEMENTAÇÃO + IA",
+        nome: "Sistema Unificado + IA",
         descricao:
-          "[Frase explicando o que a mensalidade cobre.]",
-        valor: "R$ [valor]",
-        periodo: "/mês",
-        rotuloValor: "mensalidade fixa",
+          "Tudo do Sistema Unificado, mais o Agente de IA com WhatsApp API oficial da Meta.",
+        valor: "R$ 8.500",
+        periodo: "pagamento único",
+        rotuloValor: "com Agente de IA (recomendado)",
         destaque: true,
         itens: [
-          "[Item recorrente 1]",
-          "[Item recorrente 2]",
-          "[Item recorrente 3]",
-          "[Item recorrente 4]",
-          "[Item recorrente 5]",
-          "[Item recorrente 6]",
+          "Tudo do Sistema Unificado",
+          "Agente de IA que atende 24 horas por dia",
+          "Qualifica e agenda pacientes sozinho",
+          "WhatsApp API oficial da Meta",
+          "Número protegido contra banimento",
+          "Entrega em até 2 meses",
         ],
         observacao:
-          "[Asterisco com qualquer ressalva importante, ex: custos cobrados à parte.]",
+          "O Agente de IA, vendido à parte com implementação, custa de R$ 3.000 a R$ 5.000. Neste pacote, ele entra por apenas R$ 1.500.",
+      },
+    ],
+  },
+
+  continuidade: {
+    eyebrow: "DEPOIS DA ENTREGA",
+    titulo: "Continuidade sem",
+    tituloDestaque: "letra miúda",
+    subtitulo:
+      "Você escolhe como manter o sistema rodando: com uma mensalidade fixa, ou pagando só quando precisar de algo.",
+    planos: [
+      {
+        id: "mensal",
+        eyebrow: "RECOMENDADO",
+        nome: "Plano Mensal",
+        valor: "R$ 600",
+        periodo: "/mês",
+        descricao:
+          "Tudo o que mantém o sistema no ar e evoluindo, com o nosso time junto de você.",
+        destaque: true,
+        itens: [
+          "Suporte do nosso time 24/7",
+          "Monitoramento e verificação de erros",
+          "Plataformas de otimização incluídas",
+          "Correções e melhorias dentro do escopo",
+          "Atualização dos serviços do sistema",
+        ],
+      },
+      {
+        id: "demanda",
+        eyebrow: "ALTERNATIVA",
+        nome: "Sob demanda",
+        valor: "Sob orçamento",
+        periodo: "por pedido",
+        descricao:
+          "Sem mensalidade. Cada correção ou função nova é orçada na hora, caso a caso.",
+        inferior: true,
+        itens: [
+          "Cada ajuste é orçado à parte",
+          "Sem suporte contínuo do time",
+          "Sem monitoramento de erros",
+          "Sem prioridade na fila",
+          "Custo total imprevisível",
+        ],
+        nota:
+          "Na prática, somando os pedidos avulsos, costuma sair mais caro e mais lento que a mensalidade.",
+      },
+    ],
+    custosTitulo: "Custos que vão direto para os fornecedores",
+    custosNota:
+      "Estes valores não são da GrowthHub. São pagos direto a quem fornece o serviço, com total transparência e sem margem nossa.",
+    custos: [
+      {
+        icone: IcoServidor,
+        titulo: "Servidor",
+        valor: "R$ 50 a R$ 100/mês",
+        descricao: "Hospedagem em nuvem onde o sistema fica no ar.",
+      },
+      {
+        icone: IcoTokens,
+        titulo: "Tokens de IA",
+        valor: "variável",
+        descricao: "Custo de uso do agente, conforme o volume de conversas.",
+      },
+      {
+        icone: IcoApiOficial,
+        titulo: "WhatsApp API oficial",
+        valor: "variável",
+        descricao: "Cobrado por conversa pela Meta, só no pacote com IA.",
       },
     ],
   },
 
   cta: {
     eyebrow: "PRÓXIMO PASSO",
-    titulo: "[CTA — primeira parte]",
-    tituloDestaque: "[CTA — parte com destaque]",
+    titulo: "Pronto para parar de",
+    tituloDestaque: "apagar incêndio?",
     descricao:
-      "[Frase de fechamento que reforça o ganho e convida à ação.]",
+      "Vamos tirar a sua clínica do ProDoctor e do InfoChat e colocar tudo em um sistema que funciona de verdade. Chama no WhatsApp que a gente começa.",
     botaoLabel: "Falar no WhatsApp",
-    botaoLink: "https://wa.me/55[DDD][NÚMERO]",
+    botaoLink:
+      "https://wa.me/5521991083870?text=Quero%20avan%C3%A7ar%20com%20a%20proposta%20do%20sistema%20unificado",
   },
 };

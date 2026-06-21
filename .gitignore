@@ -19,6 +19,11 @@ dist-ssr
 # Tarefas/planos locais do agente
 tasks/
 
+# Artefatos de teste visual (Playwright / screenshots / crops)
+.playwright-mcp/
+/*.jpeg
+_crop/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

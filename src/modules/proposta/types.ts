@@ -88,6 +88,7 @@ export interface InvestimentoData {
 }
 
 export interface PrecoPlano {
+  id?: string;
   eyebrow: string;
   nome: string;
   descricao: string;
@@ -112,6 +113,38 @@ export interface CTAData {
   descricao: string;
   botaoLabel: string;
   botaoLink?: string;
+  resumo?: string;
+}
+
+export interface ContinuidadePlano {
+  id?: string;
+  eyebrow: string;
+  nome: string;
+  valor: string;
+  periodo?: string;
+  descricao: string;
+  itens: string[];
+  destaque?: boolean;
+  inferior?: boolean;
+  nota?: string;
+}
+
+export interface ContinuidadeCusto {
+  icone: IconComponent;
+  titulo: string;
+  valor: string;
+  descricao: string;
+}
+
+export interface ContinuidadeData {
+  eyebrow?: string;
+  titulo: string;
+  tituloDestaque?: string;
+  subtitulo?: string;
+  planos: ContinuidadePlano[];
+  custosTitulo?: string;
+  custosNota?: string;
+  custos: ContinuidadeCusto[];
 }
 
 export interface PropostaConfig {
@@ -123,5 +156,6 @@ export interface PropostaConfig {
   jornada: JornadaData;
   investimento?: InvestimentoData;
   precos: PrecosData;
+  continuidade?: ContinuidadeData;
   cta: CTAData;
 }

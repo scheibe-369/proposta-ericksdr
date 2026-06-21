@@ -6,5 +6,6 @@ export { FeatureTabsSection } from "./components/FeatureTabsSection";
 export { JornadaSection } from "./components/JornadaSection";
 export { InvestimentoSection } from "./components/InvestimentoSection";
 export { PrecosSection } from "./components/PrecosSection";
+export { ContinuidadeSection } from "./components/ContinuidadeSection";
 export { CTASection } from "./components/CTASection";
 export type * from "./types";

@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import type { CTAData } from "../types";
 
@@ -60,6 +60,18 @@ export const CTASection = ({ data }: Props) => {
           >
             {data.descricao}
           </motion.p>
+
+          {data.resumo && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="mb-8 inline-flex items-center gap-2 rounded-full glass px-5 py-2.5 text-xs sm:text-sm font-medium text-foreground/85"
+            >
+              <Check className="w-4 h-4 text-primary flex-shrink-0" />
+              {data.resumo}
+            </motion.div>
+          )}
 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
