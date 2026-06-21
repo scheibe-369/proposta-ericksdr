@@ -173,6 +173,14 @@ export const PrecosSection = ({ data, selectedId, onSelect }: Props) => {
           />
         ))}
       </div>
+
+      {data.nota && (
+        <div className="mt-12 sm:mt-16 max-w-2xl mx-auto text-center">
+          <p className="inline-block glass rounded-2xl px-6 py-4 text-sm text-foreground/80 font-light leading-relaxed">
+            {data.nota}
+          </p>
+        </div>
+      )}
     </section>
   );
 };

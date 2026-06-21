@@ -394,6 +394,8 @@ export const proposta: PropostaConfig = {
   precos: {
     eyebrow: "INVESTIMENTO",
     titulo: "Escolha o seu pacote",
+    nota:
+      "Formas de pagamento: R$ 500 de desconto à vista. No cartão, até 3x sem juros, ou 12x com os juros da operadora.",
     planos: [
       {
         id: "sem-ia",

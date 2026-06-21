@@ -104,6 +104,7 @@ export interface PrecosData {
   eyebrow?: string;
   titulo: string;
   planos: PrecoPlano[];
+  nota?: string;
 }
 
 export interface CTAData {
