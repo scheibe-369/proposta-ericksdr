@@ -22,15 +22,12 @@ import type { PropostaConfig } from "../types";
 /**
  * FONTE ÚNICA DE CONTEÚDO DA PROPOSTA.
  *
- * Cliente: clínica médica que hoje usa ProDoctor (gestão) + InfoChat (atendimento).
+ * Cliente: Clínica Médica Breviglieri e Clínica Anima (mesmo grupo, mesmo sistema), hoje em ProDoctor (gestão) + InfoChat (atendimento).
  * Dores: ProDoctor trava/bug/lento, InfoChat bane número e tem CRM fraco.
  * Solução: um sistema unificado, sob medida, em nuvem.
  *
  * Identidade visual: roxo/violeta da GrowthHub (definido em src/index.css). Não trocar.
  * Ícones dos cards: Phosphor em peso "duotone" (mais distintos), via helper duo().
- *
- * Placeholders restantes a preencher quando o cliente enviar:
- *   {{CLIENTE}} no badge do hero (nome do cliente ou da clínica).
  */
 
 /* ------------------------------------------------------------------ */
@@ -181,11 +178,11 @@ const MockupIA = () => (
 
 export const proposta: PropostaConfig = {
   hero: {
-    badge: "PROPOSTA COMERCIAL · {{CLIENTE}}",
-    titulo: "Toda a sua clínica em",
+    badge: "PROPOSTA COMERCIAL · BREVIGLIERI E ANIMA",
+    titulo: "As suas duas clínicas em",
     tituloDestaque: "um sistema só",
     subtitulo:
-      "Gestão da clínica, atendimento e CRM no mesmo lugar. Rápido, estável, com visual moderno e um WhatsApp que não cai e não é banido.",
+      "Breviglieri e Anima na mesma plataforma: gestão, atendimento e CRM no mesmo lugar. Rápido, estável e com um WhatsApp que não cai e não é banido.",
     logoSrc: logo,
     logoAlt: "GrowthHub",
     ctaLabel: "Ver como funciona",
@@ -236,7 +233,7 @@ export const proposta: PropostaConfig = {
     eyebrow: "OS PILARES",
     titulo: "Tudo o que o ProDoctor e o InfoChat fazem, junto e funcionando",
     subtitulo:
-      "Seis frentes reunidas em uma plataforma feita sob medida para a sua clínica.",
+      "Seis frentes reunidas em uma plataforma feita sob medida para as duas clínicas do grupo.",
     pilares: [
       {
         icone: IcoProntuario,
@@ -380,7 +377,7 @@ export const proposta: PropostaConfig = {
       titulo: "Com o novo sistema",
       label: "DEPOIS",
       destaque: "1 plataforma",
-      subtitulo: "Sob medida para a sua clínica",
+      subtitulo: "Breviglieri e Anima no mesmo sistema",
       items: [
         "Sistema em nuvem rápido e estável",
         "WhatsApp protegido contra banimento",
@@ -515,7 +512,7 @@ export const proposta: PropostaConfig = {
     titulo: "Pronto para parar de",
     tituloDestaque: "apagar incêndio?",
     descricao:
-      "Vamos tirar a sua clínica do ProDoctor e do InfoChat e colocar tudo em um sistema que funciona de verdade. Chama no WhatsApp que a gente começa.",
+      "Vamos tirar as suas clínicas do ProDoctor e do InfoChat e colocar tudo em um sistema que funciona de verdade. Chama no WhatsApp que a gente começa.",
     botaoLabel: "Falar no WhatsApp",
     botaoLink:
       "https://wa.me/5521991083870?text=Quero%20avan%C3%A7ar%20com%20a%20proposta%20do%20sistema%20unificado",
