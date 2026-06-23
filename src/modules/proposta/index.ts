@@ -8,4 +8,5 @@ export { InvestimentoSection } from "./components/InvestimentoSection";
 export { PrecosSection } from "./components/PrecosSection";
 export { ContinuidadeSection } from "./components/ContinuidadeSection";
 export { CTASection } from "./components/CTASection";
+export { Footer } from "./components/Footer";
 export type * from "./types";

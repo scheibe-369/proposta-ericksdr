@@ -148,6 +148,13 @@ export interface ContinuidadeData {
   custos: ContinuidadeCusto[];
 }
 
+export interface FooterData {
+  logoSrc?: string;
+  siteUrl: string;
+  siteLabel: string;
+  nota?: string;
+}
+
 export interface PropostaConfig {
   hero: HeroData;
   marquee: MarqueeData;
@@ -159,4 +166,5 @@ export interface PropostaConfig {
   precos: PrecosData;
   continuidade?: ContinuidadeData;
   cta: CTAData;
+  footer?: FooterData;
 }

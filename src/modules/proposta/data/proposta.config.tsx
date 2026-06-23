@@ -517,4 +517,11 @@ export const proposta: PropostaConfig = {
     botaoLink:
       "https://wa.me/5521991083870?text=Quero%20avan%C3%A7ar%20com%20a%20proposta%20do%20sistema%20unificado",
   },
+
+  footer: {
+    logoSrc: logo,
+    siteUrl: "https://methodgrowthhub.com.br",
+    siteLabel: "methodgrowthhub.com.br",
+    nota: "GrowthHub · Tecnologia e automação sob medida para clínicas e negócios.",
+  },
 };

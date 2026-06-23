@@ -10,6 +10,7 @@ import {
   PrecosSection,
   ContinuidadeSection,
   CTASection,
+  Footer,
 } from "@/modules/proposta";
 import { proposta } from "@/modules/proposta/data/proposta.config";
 
@@ -72,6 +73,8 @@ const Index = () => {
       )}
 
       <CTASection data={ctaData} />
+
+      {proposta.footer && <Footer data={proposta.footer} />}
     </main>
   );
 };
